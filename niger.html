@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>النيجر: معركة السيادة | ACFS</title>
+    
+    <!-- الخطوط -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- المكتبات -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['IBM Plex Sans Arabic', 'sans-serif'] },
+                    colors: {
+                        'brand-dark': '#0f172a',
+                        'niger-orange': '#e05e1c', // برتقالي علم النيجر
+                        'niger-green': '#0db02b', // أخضر علم النيجر
+                        'brand-gold': '#d97706',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #f8fafc; color: #1e293b; }
+        .academic-p { line-height: 1.8; text-align: justify; margin-bottom: 1.5rem; font-size: 1.05rem; color: #334155; }
+        .fade-enter-active { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        .tab-active { color: #e05e1c; border-bottom: 2px solid #e05e1c; }
+        .tab-inactive { color: #94a3b8; border-bottom: 2px solid transparent; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <nav class="bg-brand-dark text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <!-- اللوجو والعودة -->
+                <div class="flex items-center gap-4">
+                    <a href="index.html" class="bg-white/10 hover:bg-white/20 p-2 rounded-lg transition">
+                        <i data-lucide="arrow-right" class="text-white w-5 h-5"></i>
+                    </a>
+                    <div class="flex flex-col">
+                        <h1 class="font-bold text-base md:text-lg tracking-wide leading-tight">
+                            المركز الأفريقي للدراسات المستقبلية
+                        </h1>
+                        <span class="text-[10px] text-niger-orange font-bold tracking-widest uppercase">
+                            ACFS - Niger Desk
+                        </span>
+                    </div>
+                </div>
+
+                <!-- التبويبات -->
+                <div class="hidden md:flex gap-8 text-sm font-medium h-full items-end">
+                    <button onclick="switchTab('analysis')" id="nav-analysis" class="tab-active pb-6 transition-colors flex items-center gap-2 h-full">
+                        <i data-lucide="microscope" class="w-4 h-4"></i> أنثروبولوجيا السيادة
+                    </button>
+                    <button onclick="switchTab('scenarios')" id="nav-scenarios" class="tab-inactive pb-6 transition-colors flex items-center gap-2 h-full">
+                        <i data-lucide="radar" class="w-4 h-4"></i> سيناريوهات 2030
+                    </button>
+                </div>
+
+                <!-- زر التحميل -->
+                <a href="niger.pdf" target="_blank" class="bg-niger-orange hover:bg-orange-700 text-white text-xs font-bold py-2.5 px-5 rounded-full transition flex items-center gap-2 shadow-md transform hover:scale-105">
+                    <i data-lucide="file-down" class="w-4 h-4"></i>
+                    <span>تحميل الدراسة (PDF)</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 py-12 relative overflow-hidden">
+        <!-- شريط العلم -->
+        <div class="absolute top-0 right-0 w-full h-1 bg-gradient-to-r from-niger-orange via-white to-niger-green"></div>
+        
+        <div class="max-w-5xl mx-auto px-4 text-center relative z-10">
+            <div class="inline-flex items-center gap-2 px-3 py-1 bg-orange-50 text-orange-700 text-xs font-bold rounded-full mb-6 border border-orange-200">
+                <span class="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
+                ورقة تقدير موقف: ديسمبر 2025
+            </div>
+            <h1 class="text-3xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight">
+                النيجر: معركة سيادة اليورانيوم <br class="hidden md:block" /> وإعادة تشكيل الهوية الوطنية
+            </h1>
+            <p class="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
+                قراءة أنثروبولوجية في سقوط "الحليف الفرنسي"، الانتقال من "الناخب" إلى "المواطن السيادي"، ومآلات التحالف مع روسيا ودول الساحل (AES).
+            </p>
+            <p class="mt-4 text-sm text-gray-500 font-bold">الباحث: أ/ حسن صابر الفلت</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow">
+        
+        <!-- Tab 1: Analysis -->
+        <div id="view-analysis" class="fade-enter-active">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <!-- المحتوى النصي -->
+                <div class="lg:col-span-8 space-y-8">
+                    <!-- السيادة والشارع -->
+                    <section class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm relative group">
+                        <div class="absolute top-0 right-0 w-1 h-full bg-niger-orange group-hover:bg-orange-600 transition-colors"></div>
+                        <h2 class="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-3">
+                            <i data-lucide="flag" class="text-niger-orange w-6 h-6"></i>
+                            أنثروبولوجيا السيادة: "المواطن السيادي"
+                        </h2>
+                        <p class="academic-p">
+                            في النيجر ما بعد بازوم، تشكل وعي جديد يتجاوز المشاركة الانتخابية. لم تعد الشرعية تستمد من الصناديق التي أفرزت نخباً موالية لباريس، بل من القدرة على تحدي القوى الأجنبية. تحولت ميادين نيامي إلى "أغورا" للمطالبة بطرد القواعد الأجنبية، مما حول الشارع من متفرج إلى شريك للعسكر في "الاستقلال الثاني".
+                        </p>
+                    </section>
+
+                    <!-- اقتصاد اليورانيوم -->
+                    <section class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm relative group">
+                        <div class="absolute top-0 right-0 w-1 h-full bg-niger-green group-hover:bg-green-600 transition-colors"></div>
+                        <h2 class="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-3">
+                            <i data-lucide="zap" class="text-niger-green w-6 h-6"></i>
+                            الاقتصاد السياسي: معركة "أورانو"
+                        </h2>
+                        <p class="academic-p">
+                            الصدام مع شركة "أورانو" الفرنسية ليس تجارياً فحسب، بل هو جوهر الصراع السيادي. رفع سعر اليورانيوم يمثل محاولة لفك الارتباط البنيوي مع فرنسا. لكن الرهان الأكبر هو خط أنابيب النفط (بنين-النيجر) الذي يمثل طوق النجاة المالي لتمويل الميزانية ورواتب الجيش بعيداً عن المساعدات الغربية المجمدة.
+                        </p>
+                    </section>
+
+                    <!-- الجيوسياسة الجديدة -->
+                    <section class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm relative group">
+                        <div class="absolute top-0 right-0 w-1 h-full bg-brand-dark group-hover:bg-slate-700 transition-colors"></div>
+                        <h2 class="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-3">
+                            <i data-lucide="globe" class="text-brand-dark w-6 h-6"></i>
+                            الجيوسياسة الجديدة: "الفيلق الأفريقي"
+                        </h2>
+                        <p class="academic-p">
+                            خروج النيجر من "إيكواس" والانضمام لـ "تحالف دول الساحل" (AES) يمثل تحولاً في عقيدة الأمن القومي نحو "الأمن الجماعي الداخلي". استبدال القوات الغربية بـ "الفيلق الأفريقي" (روسيا) يوفر حزمة بقاء للنظام (سلاح بلا شروط حقوقية)، لكنه يثير شكوكاً حول الفعالية ضد التنظيمات الجهادية المعقدة.
+                        </p>
+                    </section>
+                </div>
+
+                <!-- الجانبي -->
+                <div class="lg:col-span-4 space-y-6">
+                    <!-- كارت المفاهيم -->
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-gray-200">
+                        <h3 class="font-bold text-slate-700 mb-4 border-b border-gray-200 pb-2 flex justify-between items-center">
+                            قاموس "القطيعة"
+                            <i data-lucide="book-open" class="w-4 h-4 text-gray-400"></i>
+                        </h3>
+                        <ul class="space-y-4">
+                            <li class="flex gap-3">
+                                <div class="mt-1 min-w-[4px] h-[4px] bg-niger-orange rounded-full"></div>
+                                <div>
+                                    <span class="font-bold text-sm block text-slate-800">لابيزي (Labize)</span>
+                                    <span class="text-xs text-gray-500 leading-snug">مصطلح شعبي يعني "الجاهزية والاستعداد" للدفاع عن السيادة.</span>
+                                </div>
+                            </li>
+                            <li class="flex gap-3">
+                                <div class="mt-1 min-w-[4px] h-[4px] bg-niger-orange rounded-full"></div>
+                                <div>
+                                    <span class="font-bold text-sm block text-slate-800">تطهير الأرض</span>
+                                    <span class="text-xs text-gray-500 leading-snug">طقوس سياسية (طرد السفير، إغلاق القواعد) يُنظر إليها كغسل للدنس الاستعماري.</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- الرسم البياني -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-xs text-center mb-4 text-slate-500 uppercase tracking-widest">مؤشر التحول في الوعي</h3>
+                        <div class="relative h-60 w-full">
+                            <canvas id="identityChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2: Scenarios -->
+        <div id="view-scenarios" class="hidden fade-enter-active">
+            <div class="mb-10 text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl font-bold text-slate-800 mb-3">سيناريوهات المستقبل (2026-2030)</h2>
+                <p class="text-slate-500 text-sm">
+                    استشراف قائم على متغيرات: <span class="font-bold text-slate-700">التماسك الداخلي</span>، <span class="font-bold text-slate-700">عائدات الموارد</span>، و <span class="font-bold text-slate-700">الضغط الجهادي</span>.
+                </p>
+            </div>
+
+            <div class="space-y-8">
+                
+                <!-- S1 -->
+                <div class="bg-white rounded-2xl border-r-4 border-niger-orange shadow-sm overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <div class="bg-gradient-to-l from-slate-50 to-white p-5 border-b border-gray-100 flex justify-between items-center">
+                        <div class="flex items-center gap-3">
+                            <span class="bg-orange-100 p-2 rounded-lg"><i data-lucide="shield-check" class="w-5 h-5 text-orange-700"></i></span>
+                            <h3 class="text-xl font-bold text-slate-800">1. حصن السيادة (Garrison State)</h3>
+                        </div>
+                        <span class="bg-orange-100 text-orange-800 text-xs px-3 py-1 rounded-full font-bold shadow-sm">مرجح (45%)</span>
+                    </div>
+                    <div class="p-8">
+                        <p class="academic-p text-sm mb-4">
+                            نجاح المجلس العسكري في تثبيت حكمه عبر التحالف الروسي الصيني وتشغيل خط النفط بكفاءة. تتشكل دولة عسكرية شعبوية، مستقرة في المراكز الحضرية، مع قمع للمعارضة الحزبية.
+                        </p>
+                        <div class="flex gap-2">
+                            <span class="px-2 py-1 bg-gray-50 border rounded text-xs text-gray-600 font-bold">عوائد النفط</span>
+                            <span class="px-2 py-1 bg-gray-50 border rounded text-xs text-gray-600 font-bold">حماية روسية</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- S2 -->
+                <div class="bg-white rounded-2xl border-r-4 border-brand-dark shadow-sm overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <div class="bg-gradient-to-l from-slate-50 to-white p-5 border-b border-gray-100 flex justify-between items-center">
+                        <div class="flex items-center gap-3">
+                            <span class="bg-slate-200 p-2 rounded-lg"><i data-lucide="alert-octagon" class="w-5 h-5 text-slate-700"></i></span>
+                            <h3 class="text-xl font-bold text-slate-800">2. تحديات الشمال (التمرد الجديد)</h3>
+                        </div>
+                        <span class="bg-slate-200 text-slate-800 text-xs px-3 py-1 rounded-full font-bold shadow-sm">متوسط (35%)</span>
+                    </div>
+                    <div class="p-8">
+                        <p class="academic-p text-sm mb-0">
+                            فشل الدولة في ملء الفراغ الاقتصادي في "أغاديز" يؤدي لتمرد جديد للطوارق متحالف تكتيكياً مع الجهاديين. ضرب مناجم اليورانيوم وخطوط النفط يخنق النظام ويدخله في حرب استنزاف.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- S3 -->
+                <div class="bg-white rounded-2xl border-r-4 border-niger-green shadow-sm overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <div class="bg-gradient-to-l from-slate-50 to-white p-5 border-b border-gray-100 flex justify-between items-center">
+                        <div class="flex items-center gap-3">
+                            <span class="bg-green-100 p-2 rounded-lg"><i data-lucide="rotate-ccw" class="w-5 h-5 text-green-700"></i></span>
+                            <h3 class="text-xl font-bold text-slate-800">3. العودة البراغماتية (Tactical Return)</h3>
+                        </div>
+                        <span class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full font-bold shadow-sm">منخفض (20%)</span>
+                    </div>
+                    <div class="p-8">
+                        <p class="academic-p text-sm mb-0">
+                            تحت وطأة الديون والحاجة لتكنولوجيا اليورانيوم، يعقد النظام تسوية تكتيكية مع الغرب (عودة محدودة للشركات ورفع العقوبات) مقابل الحفاظ على الخطاب السيادي للاستهلاك المحلي.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-slate-400 py-8 text-center text-xs mt-auto">
+        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+            <p>© 2025 المركز الأفريقي للدراسات المستقبلية. جميع الحقوق محفوظة.</p>
+            <a href="index.html" class="hover:text-white transition">العودة للمكتبة الرئيسية</a>
+        </div>
+    </footer>
+
+    <!-- Logic -->
+    <script>
+        function switchTab(tabId) {
+            const tabs = ['analysis', 'scenarios'];
+            tabs.forEach(t => {
+                const content = document.getElementById(`view-${t}`);
+                const navBtn = document.getElementById(`nav-${t}`);
+                const navBtnIcon = navBtn.querySelector('i');
+                
+                if (t === tabId) {
+                    content.classList.remove('hidden');
+                    content.classList.remove('fade-enter-active');
+                    void content.offsetWidth; 
+                    content.classList.add('fade-enter-active');
+                    navBtn.classList.replace('tab-inactive', 'tab-active');
+                    navBtnIcon.classList.replace('text-white', 'text-niger-orange'); // تغيير بسيط
+                } else {
+                    content.classList.add('hidden');
+                    navBtn.classList.replace('tab-active', 'tab-inactive');
+                    navBtnIcon.classList.replace('text-niger-orange', 'text-white');
+                }
+            });
+            if(tabId === 'analysis') renderChart();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderChart() {
+            const ctx = document.getElementById('identityChart');
+            if (!ctx) return;
+            if (window.nigerChart) window.nigerChart.destroy();
+
+            Chart.defaults.font.family = "'IBM Plex Sans Arabic', sans-serif";
+            window.nigerChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['المواطن الناخب (التقليدي)', 'المواطن السيادي (الشارع)', 'الهوية القبلية'],
+                    datasets: [{
+                        data: [20, 55, 25],
+                        backgroundColor: ['#cbd5e1', '#e05e1c', '#0db02b'], // Orange for Sovereign
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom', labels: { padding: 15 } } }
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            renderChart();
+        });
+    </script>
+</body>
+</html>

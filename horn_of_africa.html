@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>القرن الأفريقي: إعادة تشكيل الجغرافيا السياسية | ACFS</title>
+    
+    <!-- الخطوط -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- المكتبات -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['IBM Plex Sans Arabic', 'sans-serif'] },
+                    colors: {
+                        'brand-dark': '#0f172a',
+                        'horn-red': '#C8102E',   // أحمر يعبر عن التوتر/البحر الأحمر
+                        'horn-blue': '#0057B7',  // أزرق (الصومال/البحر)
+                        'horn-gold': '#FCD116',
+                        'brand-gold': '#d97706',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #f8fafc; color: #1e293b; }
+        .academic-p { line-height: 1.8; text-align: justify; margin-bottom: 1.5rem; font-size: 1.05rem; color: #334155; }
+        .fade-enter-active { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        .tab-active { color: #C8102E; border-bottom: 2px solid #C8102E; }
+        .tab-inactive { color: #94a3b8; border-bottom: 2px solid transparent; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <nav class="bg-brand-dark text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex items-center gap-4">
+                    <a href="east_africa.html" class="bg-white/10 hover:bg-white/20 p-2 rounded-lg transition" title="عودة لوحدة شرق أفريقيا">
+                        <i data-lucide="arrow-right" class="text-white w-5 h-5"></i>
+                    </a>
+                    <div class="flex flex-col">
+                        <h1 class="font-bold text-base md:text-lg tracking-wide leading-tight">
+                            المركز الأفريقي للدراسات المستقبلية
+                        </h1>
+                        <span class="text-[10px] text-horn-gold font-bold tracking-widest uppercase">
+                            ACFS - Horn of Africa Unit
+                        </span>
+                    </div>
+                </div>
+
+                <div class="hidden md:flex gap-8 text-sm font-medium h-full items-end">
+                    <button onclick="switchTab('analysis')" id="nav-analysis" class="tab-active pb-6 transition-colors flex items-center gap-2 h-full">
+                        <i data-lucide="map" class="w-4 h-4"></i> التحليل الجيوسياسي
+                    </button>
+                    <button onclick="switchTab('scenarios')" id="nav-scenarios" class="tab-inactive pb-6 transition-colors flex items-center gap-2 h-full">
+                        <i data-lucide="crosshair" class="w-4 h-4"></i> سيناريوهات 2030
+                    </button>
+                </div>
+
+                <!-- زر تحميل الـ PDF -->
+                <!-- تأكد من تسمية ملف الـ PDF بـ african horn.pdf أو تعديل الرابط أدناه -->
+                <a href="african horn.pdf" target="_blank" class="bg-horn-red hover:bg-red-800 text-white text-xs font-bold py-2.5 px-5 rounded-full transition flex items-center gap-2 shadow-md transform hover:scale-105">
+                    <i data-lucide="file-down" class="w-4 h-4"></i>
+                    <span>تحميل تقدير الموقف (PDF)</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 py-12 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-full h-1 bg-gradient-to-r from-horn-red via-horn-gold to-horn-blue"></div>
+        <!-- خلفية خريطة باهتة -->
+        <div class="absolute inset-0 opacity-5 bg-[url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Africa_%28orthographic_projection%29.svg/1200px-Africa_%28orthographic_projection%29.svg.png')] bg-center bg-no-repeat"></div>
+        
+        <div class="max-w-5xl mx-auto px-4 text-center relative z-10">
+            <div class="inline-flex items-center gap-2 px-3 py-1 bg-red-50 text-red-700 text-xs font-bold rounded-full mb-6 border border-red-200">
+                <span class="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
+                تقدير موقف: باب المندب 2026
+            </div>
+            <h1 class="text-3xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight">
+                إعادة تشكيل الجغرافيا السياسية <br class="hidden md:block" /> في القرن الأفريقي وباب المندب
+            </h1>
+            <p class="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
+                تداعيات الصدع السعودي-الإماراتي في اليمن، المحور الإسرائيلي-الإثيوبي الجديد، وعودة "عقيدة المحيط" المصرية للمواجهة.
+            </p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-brand-dark font-bold bg-slate-100 w-fit mx-auto px-4 py-2 rounded-lg border border-slate-200">
+                <i data-lucide="pen-tool" class="w-4 h-4"></i>
+                بقلم أ/ حسن صابر الفلت
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow">
+        
+        <!-- Tab 1: Analysis -->
+        <div id="view-analysis" class="fade-enter-active">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <!-- المحتوى النصي -->
+                <div class="lg:col-span-8 space-y-8">
+                    <!-- المقدمة: حصار الجنوب -->
+                    <section class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm relative group">
+                        <div class="absolute top-0 right-0 w-1 h-full bg-horn-red group-hover:bg-red-700 transition-colors"></div>
+                        <h2 class="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-3">
+                            <i data-lucide="anchor" class="text-horn-red w-6 h-6"></i>
+                            المركب الأمني المعقد: "حصار الجنوب"
+                        </h2>
+                        <p class="academic-p">
+                            تحول البحر الأحمر إلى ساحة صراع دولي تهدد الأمن القومي المصري عبر استراتيجية "وحدة الساحات المعادية". لم يعد ممكناً فصل تمرد الخرطوم عن تحركات "الانتقالي" في عدن أو الاتفاق الإثيوبي مع "أرض الصومال". هناك مخطط لتطويق مصر بحزام ناري يبدأ من منابع النيل وينتهي عند باب المندب، مستغلاً الخلافات الخليجية.
+                        </p>
+                    </section>
+
+                    <!-- الصدع الخليجي -->
+                    <section class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm relative group">
+                        <div class="absolute top-0 right-0 w-1 h-full bg-brand-gold group-hover:bg-yellow-600 transition-colors"></div>
+                        <h2 class="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-3">
+                            <i data-lucide="alert-triangle" class="text-brand-gold w-6 h-6"></i>
+                            الطلاق الاستراتيجي في اليمن (حادثة المكلا)
+                        </h2>
+                        <p class="academic-p">
+                            شكل قصف الطيران السعودي لسفينة أسلحة إماراتية في ميناء المكلا (ديسمبر 2025) نقطة تحول، كاشفاً عن عمق الخلاف حول النفوذ في حضرموت. تخشى الرياض من تكرار "نموذج السودان" في اليمن عبر دعم مليشيات تقوض الدولة المركزية، مما يهدد أمنها الجنوبي ومشروع أنبوب النفط.
+                        </p>
+                    </section>
+
+                    <!-- المحور الإسرائيلي -->
+                    <section class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm relative group">
+                        <div class="absolute top-0 right-0 w-1 h-full bg-horn-blue group-hover:bg-blue-700 transition-colors"></div>
+                        <h2 class="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-3">
+                            <i data-lucide="globe" class="text-horn-blue w-6 h-6"></i>
+                            المحور الثلاثي: إسرائيل - إثيوبيا - أرض الصومال
+                        </h2>
+                        <p class="academic-p">
+                            يمثل الاعتراف الإسرائيلي بـ "أرض الصومال" خطوة لإنشاء قاعدة عسكرية في "زيلع"، تمنح تل أبيب قدرة على مراقبة باب المندب والتمركز خلف خطوط الدفاع المصرية. يتكامل هذا مع الطموح الإثيوبي لكسر العزلة الجغرافية، مما يخلق "ردعاً متبادلاً" يربط أمن النيل بأمن الملاحة في القناة.
+                        </p>
+                    </section>
+
+                    <!-- الرد المصري -->
+                    <section class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm relative group">
+                        <div class="absolute top-0 right-0 w-1 h-full bg-green-600 group-hover:bg-green-700 transition-colors"></div>
+                        <h2 class="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-3">
+                            <i data-lucide="shield-check" class="text-green-600 w-6 h-6"></i>
+                            العودة إلى "عقيدة المحيط"
+                        </h2>
+                        <p class="academic-p">
+                            تبنت مصر استراتيجية "الهجوم الدفاعي" عبر الانتشار في الصومال (بعثة AUSSOM) والتحالف مع إريتريا (قاعدة مصوع). يهدف هذا التحرك لطرد القوات الإثيوبية، منع تنفيذ مذكرة التفاهم بالقوة، ونقل المعركة إلى "ملعب الخصم" لفك الحصار الاستراتيجي.
+                        </p>
+                    </section>
+                </div>
+
+                <!-- الجانبي (بيانات ومفاهيم) -->
+                <div class="lg:col-span-4 space-y-6">
+                    
+                    <!-- كارت المفاهيم -->
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-gray-200">
+                        <h3 class="font-bold text-slate-700 mb-4 border-b border-gray-200 pb-2 flex justify-between items-center">
+                            أدوات الصراع غير التقليدية
+                            <i data-lucide="key" class="w-4 h-4 text-gray-400"></i>
+                        </h3>
+                        <ul class="space-y-4">
+                            <li class="flex gap-3">
+                                <div class="mt-1 min-w-[4px] h-[4px] bg-horn-red rounded-full"></div>
+                                <div>
+                                    <span class="font-bold text-sm block text-slate-800">حروب "القات"</span>
+                                    <span class="text-xs text-gray-500 leading-snug">استخدام إثيوبيا لرفع أسعار القات كأداة ضغط اقتصادي على أرض الصومال.</span>
+                                </div>
+                            </li>
+                            <li class="flex gap-3">
+                                <div class="mt-1 min-w-[4px] h-[4px] bg-horn-red rounded-full"></div>
+                                <div>
+                                    <span class="font-bold text-sm block text-slate-800">وحدة الساحات المعادية</span>
+                                    <span class="text-xs text-gray-500 leading-snug">تنسيق التحركات الانفصالية والمليشياوية من السودان إلى اليمن.</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- رسم بياني: توازن القوى -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-xs text-center mb-4 text-slate-500 uppercase tracking-widest">توازن القوى في القرن الأفريقي</h3>
+                        <div class="relative h-60 w-full">
+                            <canvas id="powerBalanceChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- اقتباس استراتيجي -->
+                    <div class="bg-brand-dark text-white p-6 rounded-2xl shadow-lg relative overflow-hidden">
+                        <h3 class="font-bold text-lg mb-2 flex items-center gap-2">
+                            <i data-lucide="crosshair" class="text-horn-red w-5 h-5"></i>
+                            الهدف المصري
+                        </h3>
+                        <p class="text-xs text-gray-300 mb-4 opacity-90 leading-relaxed">
+                            "نقل المعركة إلى أرض العدو عبر تفعيل محور (القاهرة - أسمرة - مقديشو) لكسر الطوق الناري حول الدولة المصرية."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2: Scenarios -->
+        <div id="view-scenarios" class="hidden fade-enter-active">
+            <div class="mb-10 text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl font-bold text-slate-800 mb-3">السيناريوهات الاستراتيجية (2026-2030)</h2>
+                <p class="text-slate-500 text-sm">استشراف للمآلات بناءً على متغيرات: التدخل الإسرائيلي، التواجد المصري، والتماسك الداخلي لدول القرن.</p>
+            </div>
+
+            <div class="space-y-8">
+                
+                <!-- S1: الصدام المباشر -->
+                <div class="bg-white rounded-2xl border-r-4 border-horn-red shadow-sm overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <div class="bg-gradient-to-l from-slate-50 to-white p-5 border-b border-gray-100 flex justify-between items-center">
+                        <div class="flex items-center gap-3">
+                            <span class="bg-red-100 p-2 rounded-lg"><i data-lucide="flame" class="w-5 h-5 text-red-700"></i></span>
+                            <h3 class="text-xl font-bold text-slate-800">1. الصدام وتدويل الصراع</h3>
+                        </div>
+                        <span class="bg-red-600 text-white text-xs px-3 py-1 rounded-full font-bold shadow-sm">سيناريو التصعيد</span>
+                    </div>
+                    <div class="p-8">
+                        <p class="academic-p text-sm mb-0">
+                            تندفع إثيوبيا (بدعم إسرائيلي/إماراتي) لفرض قاعدة زيلع بالقوة. ترد مصر والصومال عسكرياً لقطع الطريق. تدخل إريتريا الحرب. النتيجة: إغلاق باب المندب وانهيار اقتصادي إقليمي.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- S2: الاستنزاف والكانتونات -->
+                <div class="bg-white rounded-2xl border-r-4 border-brand-gold shadow-sm overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <div class="bg-gradient-to-l from-slate-50 to-white p-5 border-b border-gray-100 flex justify-between items-center">
+                        <div class="flex items-center gap-3">
+                            <span class="bg-yellow-100 p-2 rounded-lg"><i data-lucide="layers" class="w-5 h-5 text-yellow-700"></i></span>
+                            <h3 class="text-xl font-bold text-slate-800">2. الاستنزاف (حرب الكانتونات)</h3>
+                        </div>
+                        <span class="bg-yellow-100 text-yellow-800 text-xs px-3 py-1 rounded-full font-bold shadow-sm">مرجح (متوسط)</span>
+                    </div>
+                    <div class="p-8">
+                        <p class="academic-p text-sm mb-0">
+                            تنجح الضغوط في لجم الطموح الإثيوبي جزئياً، لكن يستمر تفكك اليمن والصومال إلى دويلات (حضرموت، صوماليلاند...). تتحول المنطقة لبؤر توتر دائمة تستنزف الموارد المصرية دون مواجهة شاملة.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- S3: الردع الناجح -->
+                <div class="bg-white rounded-2xl border-r-4 border-blue-600 shadow-sm overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <div class="bg-gradient-to-l from-slate-50 to-white p-5 border-b border-gray-100 flex justify-between items-center">
+                        <div class="flex items-center gap-3">
+                            <span class="bg-blue-100 p-2 rounded-lg"><i data-lucide="check-circle" class="w-5 h-5 text-blue-700"></i></span>
+                            <h3 class="text-xl font-bold text-slate-800">3. نجاح الردع (التراجع الإثيوبي)</h3>
+                        </div>
+                        <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full font-bold shadow-sm">منخفض</span>
+                    </div>
+                    <div class="p-8">
+                        <p class="academic-p text-sm mb-0">
+                            ينجح التواجد العسكري المصري والضغط السعودي المالي في إجبار إثيوبيا على التراجع عن مذكرة التفاهم والعودة لمفاوضات سد النهضة. يتطلب هذا تغييراً في الموقف الأمريكي.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-slate-400 py-10 text-center text-xs mt-auto border-t border-slate-800">
+        <div class="max-w-4xl mx-auto px-4 space-y-4">
+            <div>
+                <p class="font-bold text-white text-lg mb-1">المركز الأفريقي للدراسات المستقبلية</p>
+                <p class="text-gray-500 font-medium tracking-wide">African Center for Future Studies (ACFS)</p>
+            </div>
+            
+            <div class="w-16 h-1 bg-brand-gold mx-auto rounded-full opacity-50"></div>
+            
+            <div>
+                <p class="text-slate-300 font-bold text-sm">مدير المركز: حسن صابر الفلت</p>
+            </div>
+            
+            <p class="pt-6 opacity-40">© 2025 جميع الحقوق محفوظة</p>
+        </div>
+    </footer>
+
+    <!-- Logic -->
+    <script>
+        function switchTab(tabId) {
+            const tabs = ['analysis', 'scenarios'];
+            tabs.forEach(t => {
+                const content = document.getElementById(`view-${t}`);
+                const navBtn = document.getElementById(`nav-${t}`);
+                const navBtnIcon = navBtn.querySelector('i');
+                
+                if (t === tabId) {
+                    content.classList.remove('hidden');
+                    content.classList.remove('fade-enter-active');
+                    void content.offsetWidth; 
+                    content.classList.add('fade-enter-active');
+                    navBtn.classList.replace('tab-inactive', 'tab-active');
+                    navBtnIcon.classList.replace('text-white', 'text-horn-red');
+                } else {
+                    content.classList.add('hidden');
+                    navBtn.classList.replace('tab-active', 'tab-inactive');
+                    navBtnIcon.classList.replace('text-horn-red', 'text-white');
+                }
+            });
+            if(tabId === 'analysis') renderChart();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderChart() {
+            const ctx = document.getElementById('powerBalanceChart');
+            if (!ctx) return;
+            if (window.hornChart) window.hornChart.destroy();
+
+            Chart.defaults.font.family = "'IBM Plex Sans Arabic', sans-serif";
+            window.hornChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['الوجود العسكري المباشر', 'النفوذ الاقتصادي', 'التحالفات المحلية', 'الدعم الدولي (إسرائيل/الغرب)', 'السيطرة على الموانئ'],
+                    datasets: [{
+                        label: 'المحور المصري-الصومالي',
+                        data: [80, 40, 70, 30, 50],
+                        borderColor: '#0db02b', // Green
+                        backgroundColor: 'rgba(13, 176, 43, 0.2)'
+                    }, {
+                        label: 'المحور الإثيوبي-الإسرائيلي',
+                        data: [60, 50, 40, 90, 70],
+                        borderColor: '#C8102E', // Red
+                        backgroundColor: 'rgba(200, 16, 46, 0.2)'
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    scales: { r: { suggestedMin: 0, suggestedMax: 100 } }
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            renderChart();
+        });
+    </script>
+</body>
+</html>
